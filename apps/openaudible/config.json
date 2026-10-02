@@ -1,0 +1,35 @@
+{
+  "name": "OpenAudible",
+  "id": "openaudible",
+  "available": true,
+  "port": 8833,
+  "exposable": true,
+  "dynamic_config": true,
+  "tipi_version": 33,
+  "version": "4.5.0",
+  "categories": ["media"],
+  "short_desc": "OpenAudible audiobook manager (browser GUI via Docker).",
+  "description": "OpenAudible im Browser: Hörbücher verwalten, downloaden und nach MP3/M4B konvertieren. Experimenteller Docker-Build (KasmVNC) des Desktop-Clients von openaudible.org.",
+  "author": "openaudible",
+  "source": "https://github.com/openaudible/openaudible_docker",
+  "website": "https://openaudible.org/",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "env_variable": "TZ",
+      "default": "Europe/Berlin"
+    },
+    {
+      "type": "text",
+      "label": "Use beta releases (true/false)",
+      "env_variable": "OA_BETA",
+      "default": "false"
+    }
+  ],
+  "supported_architectures": ["amd64"],
+  "created_at": 1759400000000,
+  "updated_at": 1759400000000,
+  "$schema": "../app-info-schema.json",
+  "min_tipi_version": "4.5.0"
+}

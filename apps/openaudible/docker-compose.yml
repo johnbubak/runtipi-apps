@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+  openaudible:
+    image: openaudible/openaudible:latest
+    container_name: openaudible
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - ${APP_PORT}:3000
+    volumes:
+      - ${APP_DATA_DIR}/data:/config/OpenAudible
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ:-Europe/Berlin}
+      - OA_BETA=${OA_BETA:-false}
+      - DWEBKIT_DISABLE_DMABUF_RENDERER=1
+      - DWEBKIT_DISABLE_COMPOSITING_MODE=1
+      - DWEBKIT_FORCE_SOFTWARE_RENDERING=1
+      - DGDK_GL=disable
+      - KASM_AUDIO_ENABLED=1
+      - OA_KIOSK=true
+      - oa_internal_browser=true
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.openaudible-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.openaudible.loadbalancer.server.port: 3000
+      traefik.http.routers.openaudible-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.openaudible-insecure.entrypoints: web
+      traefik.http.routers.openaudible-insecure.service: openaudible
+      traefik.http.routers.openaudible-insecure.middlewares: openaudible-web-redirect
+      traefik.http.routers.openaudible.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.openaudible.entrypoints: websecure
+      traefik.http.routers.openaudible.service: openaudible
+      traefik.http.routers.openaudible.tls.certresolver: myresolver
+      traefik.http.routers.openaudible-local-insecure.rule: Host(`openaudible.${LOCAL_DOMAIN}`)
+      traefik.http.routers.openaudible-local-insecure.entrypoints: web
+      traefik.http.routers.openaudible-local-insecure.service: openaudible
+      traefik.http.routers.openaudible-local-insecure.middlewares: openaudible-web-redirect
+      traefik.http.routers.openaudible-local.rule: Host(`openaudible.${LOCAL_DOMAIN}`)
+      traefik.http.routers.openaudible-local.entrypoints: websecure
+      traefik.http.routers.openaudible-local.service: openaudible
+      traefik.http.routers.openaudible-local.tls: true
+      runtipi.managed: true
