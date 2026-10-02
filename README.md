@@ -18,6 +18,12 @@ runtipi-store/
 `id` in `config.json` = Ordnername (`openaudible`). Pflichtdateien pro App:
 `config.json` + `docker-compose.yml` + `metadata/logo.jpg` + `metadata/description.md`.
 
+## Remotes
+
+- Gitea (aktiv auf .72, LAN-sicher): `jan/runtipi-store`
+- GitHub (public Mirror): `johnbubak/runtipi-apps`
+- Pushen: `git push gitea main && git push github main`
+
 ## Store in Runtipi einbinden (.72)
 
 1. Runtipi-Dashboard öffnen → **App Store** → **Custom Store hinzufügen**.
