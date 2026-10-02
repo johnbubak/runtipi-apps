@@ -1,0 +1,20 @@
+services:
+  libation:
+    image: ceramicwhite/libation:latest
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ${APP_DATA_DIR}/data:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ:-Europe/Berlin}
+    x-runtipi:
+      is_main: true
+      internal_port: 3000
+
+x-runtipi:
+  schema_version: 2

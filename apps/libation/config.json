@@ -1,0 +1,29 @@
+{
+  "name": "Libation",
+  "id": "libation",
+  "available": true,
+  "port": 8834,
+  "exposable": true,
+  "dynamic_config": true,
+  "tipi_version": 33,
+  "version": "12.0.2",
+  "categories": ["media", "books"],
+  "short_desc": "Libation Audible manager (free): liberate books + auto-upload to Audiobookshelf.",
+  "description": "Libation im Browser (kostenlos, GPL): Audible-Bibliothek verwalten, Hörbücher frei herunterladen (M4B/MP3) und per Auto-Upload direkt an Audiobookshelf senden.",
+  "author": "rmcrackan (docker: ceramicwhite)",
+  "source": "https://github.com/rmcrackan/Libation",
+  "website": "https://getlibation.com/",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Timezone",
+      "env_variable": "TZ",
+      "default": "Europe/Berlin"
+    }
+  ],
+  "supported_architectures": ["amd64"],
+  "created_at": 1759400000000,
+  "updated_at": 1759400000000,
+  "$schema": "../app-info-schema.json",
+  "min_tipi_version": "4.5.0"
+}
