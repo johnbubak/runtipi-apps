@@ -40,9 +40,10 @@ Store-Name (`custom`) ggf. anpassen: `./runtipi-cli app list` zeigt installierte
 1. Upstream-README + `docker-compose.yml` lesen (Image, interner Port, Volumes, Env, `security_opt`).
 2. Ordner `apps/<id>/` anlegen, `config.json` nach `apps/nginx`-Schema schreiben
    (`id` = Ordner, `port` frei z. B. 88xx, `dynamic_config: true`, `amd64` wenn x86-Image).
-3. `docker-compose.yml` im Nginx-Label-Stil schreiben:
-   `ports: ["${APP_PORT}:<intern>"]`, Volume `${APP_DATA_DIR}/data:/<container-pfad>`,
-   Env aus `form_fields` (`${VAR:-default}`), Netzwerk `tipi_main_network`, Traefik-Labels kopieren.
+3. `docker-compose.yml` im Dynamic-Format (`x-runtipi`, KEINE Traefik-Labels —
+   sonst scheitert der Install mit Schema-Fehler, belegt 2026-10-02):
+   Service mit `image`, Volumes, Env + `x-runtipi: {is_main: true, internal_port: <intern>}`;
+   top-level `x-runtipi: {schema_version: 2}`. Ports/Netz/Labels generiert Runtipi.
 4. `metadata/description.md` + `metadata/logo.jpg` (512×512) anlegen.
 5. Lokal validieren: `python3 -c json.load(config.json)` + `docker compose config`.
 6. Pushen → Store-Update in Runtipi → Install testen.
